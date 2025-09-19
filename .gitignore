@@ -8,8 +8,6 @@ __pycache__/
 
 # Django
 /staticfiles/
-/media/pdf
-
 
 # VSCode or PyCharm
 .vscode/
@@ -33,3 +31,8 @@ env/
 # Ignore environment variables file
 .env
 setup_structure.py
+
+# Ignore Django migrations
+*/migrations/*.py
+!*/migrations/__init__.py
+
