@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <p class="hero-greeting">Hello, I'm</p>
+            <h1 class="hero-name">PUSHPAK C</h1>
+            <h2 class="hero-title">Full Stack Developer</h2>
+            <p class="hero-description">
+                I create responsive, user-friendly websites and applications using modern technologies.
+                Passionate about clean code and innovative solutions.
+            </p>
+            <div class="cta-buttons">
+                <a href="{% url 'index' %}#projects" class="btn btn-primary">
+                    <i class="fas fa-briefcase"></i> View Projects
+                </a>
+                <a href="{% url 'index' %}#contact" class="btn btn-outline">
+                    <i class="fas fa-paper-plane"></i> Contact Me
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="{% static 'images/profile.jpg' %}" alt="Profile Picture">
+        </div>
+    </div>
+</section>
+
+<section id="about" class="section">
+    <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+           <div class="fire-text-container">
+              <div class="text-puzzle-animation">
+                <span class="puzzle-letter" data-letter="P">P</span>
+                <span class="puzzle-letter" data-letter="u">u</span>
+                <span class="puzzle-letter" data-letter="s">s</span>
+                <span class="puzzle-letter" data-letter="h">h</span>
+                <span class="puzzle-letter" data-letter="p">p</span>
+                <span class="puzzle-letter" data-letter="a">a</span>
+                <span class="puzzle-letter" data-letter="k">k</span>
+              </div>
+              <div class="fire-background"></div>
+            </div>
+
+
+            <div class="about-text">
+                <h3>Curious Developer & Problem Solver</h3>
+                <p>
+                    I am an aspiring Full Stack Developer with strong skills in Python, Django, HTML, CSS, and database systems (SQLite3, PostgreSQL, MongoDB).
+                    I also have experience working with AWS and Ubuntu/Linux environments, enabling me to build, deploy, and maintain scalable web applications.
+                </p>
+                <p>
+                    With a background in data analysis, CRM systems, and digital marketing, I bring a unique blend of technical expertise and business understanding.
+                    I have developed projects including an e-commerce web application (Pushtoys) and a portfolio website, showcasing my ability to design user-friendly, responsive, and functional solutions.
+                </p>
+                <p>
+                    I am passionate about problem-solving, continuous learning, and applying my skills to contribute to real-world software solutions.
+                    My goal is to grow as a developer while delivering value to the organizations I work with.
+                </p>
+                <div class="about-details">
+                    <div class="detail-item">
+                        <i class="fas fa-chevron-right"></i>
+                        <span><strong>Name:</strong> PUSHPAK C</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-chevron-right"></i>
+                        <span><strong>Email:</strong> pushpakboshan12@gmail.com</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-chevron-right"></i>
+                        <span><strong>Age:</strong> 26</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-chevron-right"></i>
+                        <span><strong>Number:</strong> 8754417671</span>
+                    </div>
+                </div>
+                {% for doc in documents %}
+                    <a href="{{ doc.pdf_file.url }}" class="btn btn-primary" download>
+                        <i class="fas fa-download"></i> Download CV
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills" class="section">
+    <div class="container">
+        <h2 class="section-title">My Skills</h2>
+        <div class="category-skill-container">
+            {% for category in categories %}
+            <div class="category-item">
+                <h3 class="category-name">{{ category.name }}</h3>
+                <div class="skill-descriptions">
+                    {% for skill in category.skill_set.all %}
+                        <p class="description description1">{{ skill.description1 }}</p>
+                        <p class="description description2">{{ skill.description2 }}</p>
+                        {% if skill.description3 %}
+                            <p class="description description3">{{ skill.description3 }}</p>
+                        {% endif %}
+                        {% if skill.description4 %}
+                            <p class="description description4">{{ skill.description4 }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="section">
+    <div class="container">
+        <h2 class="section-title">My Projects</h2>
+        <div class="projects-grid">
+            {% for project in featured_projects %}
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">{{ project.title }}</h3>
+                    <p class="project-description">{{ project.description }}</p>
+                    <div class="project-technologies">
+                        {% for tech in project.technologies.split %}
+                        <span class="tech-tag">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="project-links">
+                        <a href="{{ project.project_url }}" class="project-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="{{ project.github_url }}" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="section">
+    <div class="container">
+        <h2 class="section-title">Get In Touch</h2>
+        {% if messages %}
+          <div class="container mt-3">
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        <form class="contact-form" method="POST" action="{% url 'save_contact' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="subject" placeholder="e.g. Job Opportunity" required>
+            </div>
+            <div class="form-group">
+                <textarea name="message" placeholder="Write your message here..." rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+    </div>
+</section>
+
+
+
+
+<script>
+  setTimeout(() => {
+    let alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      alert.classList.remove("show"); // Bootstrap fade-out
+      setTimeout(() => {
+        alert.remove(); // fully remove from DOM
+      }, 500); // wait for fade-out
+    });
+  }, 10000); // dismiss after 10 seconds
+</script>
+
+
+{% endblock %}

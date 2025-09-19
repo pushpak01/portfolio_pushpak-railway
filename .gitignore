@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+*.pot
+*.pyc
+
+# Django
+/staticfiles/
+/static/images
+/media/pdf
+
+
+# VSCode or PyCharm
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Ignore database
+db.sqlite3
+
+# Ignore uploaded images
+/cache/
+/media/
+/media/projects
+
+# Ignore virtual environment
+.venv/
+venv/
+env/
+
+# Ignore environment variables file
+.env
+setup_structure.py
