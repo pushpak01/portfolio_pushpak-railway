@@ -65,7 +65,10 @@ DATABASES = {
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': BASE_DIR / 'cache',
+        'LOCATION': str(BASE_DIR / 'cache'),  # Fixed line
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000
+        }
     }
 }
 
