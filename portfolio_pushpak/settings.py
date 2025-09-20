@@ -10,7 +10,7 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 # Allowed Hosts (Railway URL + localhost)
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", os.getenv("RAILWAY_URL", ".railway.app")]
 CSRF_TRUSTED_ORIGINS = [
-    "https://portfolio-production.up.railway.app",
+    "https://portfolio-pushpak.up.railway.app",
 ]
 
 INSTALLED_APPS = [
