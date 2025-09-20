@@ -3,11 +3,13 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'your-secret-key-here'
-
-DEBUG = True
-
-ALLOWED_HOSTS = []
+SECRET_KEY = os.getenv("SECRET_KEY", "your-default-secret-key")  # Set in Railway Variables
+DEBUG = os.getenv("DEBUG", "False") == "True"
+# Allowed Hosts (Railway URL + localhost)
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", os.getenv("RAILWAY_URL", ".railway.app")]
+CSRF_TRUSTED_ORIGINS = [
+    "https://portfolio-production.up.railway.app",
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -83,11 +85,3 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Email settings (configure with your email service)
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your-email@gmail.com'
-EMAIL_HOST_PASSWORD = 'your-app-password'
