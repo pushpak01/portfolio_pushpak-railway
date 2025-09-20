@@ -1,4 +1,6 @@
 import os
+import sys
+import dj_database_url
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,10 +53,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'portfolio_pushpak.wsgi.application'
 
+# Database (Railway provides DATABASE_URL automatically)
 DATABASES = {
+    "default": dj_database_url.config(
+        default="sqlite:///db.sqlite3", conn_max_age=600, ssl_require=False
+    )
+}
+
+
+CACHES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': BASE_DIR / 'cache',
     }
 }
 
