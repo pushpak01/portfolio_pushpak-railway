@@ -3,7 +3,7 @@ import sys
 import dj_database_url
 from pathlib import Path
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY", "your-default-secret-key")  # Set in Railway Variables
 DEBUG = os.getenv("DEBUG", "False") == "True"
