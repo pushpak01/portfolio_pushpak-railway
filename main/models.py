@@ -1,5 +1,4 @@
 from django.db import models
-from sorl.thumbnail import get_thumbnail
 
 
 class Project(models.Model):
@@ -14,18 +13,6 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
-
-    def image_preview(self, obj):
-        if obj.image:
-            try:
-                # Create or retrieve a cached 50x50 thumbnail
-                thumb = get_thumbnail(obj.image, '50x50', crop='center', quality=80)
-                return format_html('<img src="{}" width="50" height="50" />', thumb.url)
-            except Exception:
-                return "(Invalid image)"
-        return "(No image)"
-
-    image_preview.short_description = 'Preview'
 
 
 class Category(models.Model):
